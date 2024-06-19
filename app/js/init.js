@@ -11,7 +11,6 @@ const remote = require('electron').remote;
 const Menu = remote.Menu;
 const dialog = remote.dialog;
 const Tray = remote.Tray;
-const autoUpdater = remote.autoUpdater;
 const clipboard = require('electron').clipboard;
 const path = require('path');
 const ipc = require('electron').ipcRenderer;
@@ -31,7 +30,6 @@ window.$ = window.jQuery = require('jquery');
 require('./js/jquery/jquery-ui.min.js');
 require('./js/jquery/alphanum.min.js');
 
-const releaseUrl = remote.getGlobal('release_url');
 
 let launchpad; // Our launchpadder instance
 let usbConnected; // Bool for Launchpad USB state
@@ -186,41 +184,6 @@ function loadTracks() { // Load track data to array
   }
 }
 
-autoUpdater.setFeedURL(`${releaseUrl}/${process.platform}/${process.arch}`);
-setInterval(() => {
-  checkForUpdates();
-}, 1000 * 60 * 15);
-
-function checkForUpdates() {
-  autoUpdater.checkForUpdates();
-}
-
-autoUpdater.on('error', console.error);
-
-autoUpdater.on('checking-for-update', () => {
-  console.log('Squirrel: checking-for-update');
-});
-
-autoUpdater.on('update-available', () => {
-  console.log('Squirrel: update-available');
-  if (notyUpdates) {
-    notyUpdates = false;
-    centerNOTY('notification', 'Updates available, Downloading...', 3000);
-  }
-});
-
-autoUpdater.on('update-not-available', () => {
-  console.log('Squirrel: update-not-available');
-  if (notyUpdates) {
-    notyUpdates = false;
-    centerNOTY('notification', 'There are no updates available.');
-  }
-});
-
-autoUpdater.on('update-downloaded', () => {
-  console.log('Squirrel: update-downloaded');
-  $('#update_available').show();
-});
 
 function getKeyConfig(key) {
   if (Array.isArray(key)) key = key.join(',');
