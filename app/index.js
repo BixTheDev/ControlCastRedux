@@ -17,45 +17,6 @@ const logger = require('./logger')();
 const simpleflake = require('simpleflakes');
 
 
-// Squirrel Auto Update Handlers
-
-
-const target = path.basename(process.execPath);
-function runCommand(args, callback) {
-  const updateExe = path.resolve(path.dirname(process.execPath), '..', 'Update.exe');
-  logger.debug('Spawning `%s` with args `%s`', updateExe, args);
-  spawn(updateExe, args, { detached: true }).on('close', callback);
-}
-
-function handleStartupEvent() {
-  if (process.platform !== 'win32') {
-    return false;
-  }
-  const squirrelCommand = process.argv[1];
-  switch (squirrelCommand) {
-    case '--squirrel-install':
-    case '--squirrel-updated':
-      runCommand([`--createShortcut=${target}`, '--shortcut-locations=Desktop,StartMenu'], () => {
-        app.quit();
-      });
-      return true;
-    case '--squirrel-uninstall':
-      runCommand([`--removeShortcut=${target}`, '--shortcut-locations=Desktop,StartMenu'], () => {
-        app.quit();
-      });
-      return true;
-    case '--squirrel-obsolete':
-      app.quit();
-      return true;
-    default:
-      return false;
-  }
-}
-
-if (handleStartupEvent()) {
-  return;
-}
-
 
 // Force Single Instance
 
@@ -86,7 +47,6 @@ app.setAppUserModelId('com.squirrel.ControlCast.ControlCast');
 app.setPath('userData', path.join(process.env.APPDATA, 'ControlCast'));
 
 global.app_version = require('../package.json').version; // Store app version for in app displays
-global.release_url = require('../package.json').releaseUrl; // Store releaseUrl for update queries
 
 robot.setKeyboardDelay(50); // Set delay for each keypress for OBS
 
