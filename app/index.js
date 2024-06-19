@@ -7,7 +7,7 @@ const BrowserWindow = electron.BrowserWindow;
 const ipc = electron.ipcMain;
 const autoUpdater = electron.autoUpdater;
 
-const Config = require('electron-config');
+const Config = require('electron-store');
 const fs = require('fs');
 const path = require('path');
 const spawn = require('child_process').spawn;
