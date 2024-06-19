@@ -1,5 +1,5 @@
 {
-  "name": "ControlCast",
+  "name": "ControlCast-Rework",
   "version": "0.3.4",
   "description": "ControlCast",
   "main": "./app",
@@ -35,8 +35,7 @@
     "underscore": "^1.8.3",
     "usb-detection": "^1.4.0",
     "winston": "^2.3.1",
-    "winston-loggly-bulk": "^1.4.1",
-    "woopra": "^0.2.0"
+    "winston-loggly-bulk": "^1.4.1"
   },
   "releaseUrl": "https://controlcast.s3.amazonaws.com"
 }

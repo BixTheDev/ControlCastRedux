@@ -14,8 +14,6 @@ const spawn = require('child_process').spawn;
 const robot = require('robotjs');
 const logger = require('./logger')();
 
-const Woopra = require('woopra');
-const woopra = new Woopra('ControlCast.tv', {});
 const simpleflake = require('simpleflakes');
 
 
@@ -140,7 +138,6 @@ if (fs.existsSync(logPath)) {
   });
 }
 updateNewConfig();
-woopra.identify(config.get('app.id')).push();
 
 app.on('window-all-closed', () => { // Quit when all windows are closed.
   if (process.platform !== 'darwin') app.quit();
