@@ -28,7 +28,7 @@
     "moment": "^2.17.1",
     "noty": "^2.4.1",
     "request": "^2.81.0",
-    "robotjs": "github:dbkynd/robotjs",
+    "robotjs": "0.6.0",
     "simpleflakes": "^1.2.3",
     "socket.io": "^1.7.3",
     "superagent": "^3.5.0",
